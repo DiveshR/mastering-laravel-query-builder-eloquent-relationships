@@ -60,7 +60,7 @@ $table->string('name')->unique();
 ###### Alter ways
 `````
 $table->string('name')->unique();
-````
+`````
 1.  `````$table->unique('name');``````
 2. When more than 1 column is unique ``````$table->unique(['name',''email]);```````
 
