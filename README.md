@@ -88,6 +88,15 @@ $table->boolean('status')->comment('Status of a user');
 ```
 $table->boolean('status')->default(false);
 ```
+###### 4. from();
+- id column has auto-increment value with 1, But if you want it to start from a particular value we use ```from()```.
+
+```
+$table->id()->from(1000);
+```
+###### 5. nullable();
+- When we no  need value to a column, we uses ```nullable()```
+
 
 
 
