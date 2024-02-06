@@ -98,5 +98,10 @@ $table->id()->from(1000);
 - When we no  need value to a column, we uses ```nullable()```
 
 
+### Running Migrations
+###### 1. Migrate all tables
+```php artisan migrate```
+###### 2. This status artisan shows us migration history
+```php artisan migrate:status```
 
 
