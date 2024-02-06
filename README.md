@@ -30,7 +30,7 @@ php artisan make:migration "create posts table"
 php artisan make:migration create_posts_table
 `````
 Migrations allow you to design a database schema before using it.
-Migration file ```return instance of a migration class in migration table````
+Migration file ```return instance of a migration class in migration table```
 schema --comes from schema builder class.
 closure parameter of Blueprint object
 
@@ -61,7 +61,7 @@ $table->string('name')->unique();
 `````
 $table->string('name')->unique();
 ``````
-1.  $table->unique('name');```````
+1.  ```$table->unique('name');```
 2. When more than 1 column is unique ```$table->unique(['name',''email]);```
 
 
