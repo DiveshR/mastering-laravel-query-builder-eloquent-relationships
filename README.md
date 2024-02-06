@@ -64,5 +64,30 @@ $table->string('name')->unique();
 1.  ```$table->unique('name');```
 2. When more than 1 column is unique ```$table->unique(['name',''email]);```
 
+###### Before
+`````
+$table->string('name');
+`````
+###### After
+`````
+$table->string('name')->unique();
+`````
+###### Alter ways
+`````
+$table->string('name')->unique();
+``````
+1.  ```$table->unique('name');```
+2. When more than 1 column is unique ```$table->unique(['name',''email]);```
+
+###### 2. comment();
+```
+$table->boolean('status')->comment('Status of a user');
+```
+
+###### 3. default();
+```
+$table->boolean('status')->default(false);
+```
+
 
 
