@@ -100,8 +100,12 @@ $table->id()->from(1000);
 
 ### Running Migrations
 ###### 1. Migrate all tables
-```php artisan migrate```
+```
+php artisan migrate
+```
 ###### 2. This status artisan shows us migration history
-```php artisan migrate:status```
+```
+php artisan migrate:status
+```
 
 
