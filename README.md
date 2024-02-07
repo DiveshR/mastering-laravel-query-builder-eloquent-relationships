@@ -145,4 +145,46 @@ php artisan migrate:fresh
 ```
 NOTE: MAIN DIFFERENCE BETWEEN fresh and refresh COMMAND IS REFRESH COMMAND DELETE ALL TABLES AND THEN PERFORM UP OPERATION FOR MIGRATION, BUT FRESH COMMAND FIRST RUNS DOWN OPERATION TO DELETE ALL TABLES FROM DATABASE AND THEN PERFORMS UP OPERATION FOR MIGRATE ALL TABLES INTO THE DATABASE. 
 
+### Squashing Migrations :
+###### The schema dump artisan command generate a SQL file of your database. Which will be saved inside schema directory under database directory(database/schema directory).
+```
+php artisan schema:dump
+```
+###### The schema dump artisan command with prune flag will dump the current database schema and prune all existing migrations
+```
+php artisan schema:dump --prune
+```
 
+### Modifying Columns : 
+###### The make migration artisan command with --table flag with table name helps us to add new column to a existing table.
+```
+php artisan make:migration add_country_in_users_table --table=users 
+```
+```
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('country');
+        });
+    }
+
+```
+Another example which modify the existing column 
+
+```
+Schema::table('users', function (Blueprint $table) {
+    $table->string('name', 50)->change();
+});
+```
+When modifying a column, you must explicitly include all of the modifiers you want to keep on the column definition - any missing attribute will be dropped. For example, to retain the unsigned, default, and comment attributes, you must call each modifier explicitly when changing the column:
+
+```
+Schema::table('users', function (Blueprint $table) {
+    $table->integer('votes')->unsigned()->default(1)->comment('my comment')->change();
+});
+```
+```
+Schema::table('users', function (Blueprint $table) {
+    $table->string('name', 50)->change();
+});
+```
