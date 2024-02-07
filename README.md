@@ -188,3 +188,122 @@ Schema::table('users', function (Blueprint $table) {
     $table->string('name', 50)->change();
 });
 ```
+### Renaming Columns : 
+Rename ```country``` column to ```country_id```
+```
+php artisan make:migration rename_country_to_country_name_on_users_table --table=users
+```
+```
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('country', 'country_name');
+        });
+    }
+Then run ```php artisan migrate```
+```
+
+NOTE: While renaming column renameColumn required two parameter from and to where from is older column name and to is new column name.
+
+### Dropping Columns : 
+To drop a column, you may use the ```dropColumn()``` method on the schema builder:
+```
+Schema::table('users', function (Blueprint $table) {
+    $table->dropColumn('name');
+});
+```
+
+For Deleting multiple columns : 
+```
+Schema::table('users', function (Blueprint $table) {
+    $table->dropColumn(['name','age','city']);
+});
+```
+###### Available Command Aliases:
+```
+$table->dropMorphs('morphable');
+// Drop the morphable_id and morphable_type columns.
+```
+```
+$table->dropRememberToken();
+// Drop the remember_token column.
+```
+
+```
+$table->dropSoftDeletesTz();
+// Alias of dropSoftDeletes() method.
+```
+
+```
+$table->dropTimestamps();
+// Drop the created_at and updated_at columns.
+```
+
+```
+$table->dropTimestampsTz();
+// Alias of dropTimestamps() method.
+```
+
+### Foreign Key Constraints : 
+Laravel also provides support for creating foreign key constraints, which are used to force referential integrity at the database level.
+For example, let's define a ```user_id``` column on the ```posts``` table that references the ```id``` column on a ```users``` table:
+
+```
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+ 
+Schema::table('posts', function (Blueprint $table) {
+    $table->unsignedBigInteger('user_id');
+ 
+    $table->foreign('user_id')->references('id')->on('users');
+});
+```
+
+Since this syntax is rather verbose, Laravel provides additional, terser methods that use conventions to provide a better developer experience. When using the foreignId method to create your column, the example above can be rewritten like
+```
+Schema::table('posts', function (Blueprint $table) {
+    $table->foreignId('user_id')->constrained();
+});
+```
+
+You may also specify the desired action for the "on delete" and "on update" properties of the constraint:
+```
+$table->foreignId('user_id')
+      ->constrained()
+      ->onUpdate('cascade')
+      ->onDelete('cascade');
+
+```
+```
+$table->cascadeOnUpdate();
+// Updates should cascade.
+```
+```
+$table->restrictOnUpdate();
+// Updates should be restricted.
+```
+```
+$table->noActionOnUpdate();
+// No action on updates.
+```
+
+```
+$table->cascadeOnDelete();
+// Deletes should cascade.
+```
+```
+$table->restrictOnDelete();
+// Deletes should be restricted.
+```
+```
+$table->nullOnDelete();
+// Deletes should set the foreign key value to null.
+```
+
+Any additional column modifiers must be called before the constrained method:
+
+```
+$table->foreignId('user_id')
+      ->nullable()
+      ->constrained();
+```
